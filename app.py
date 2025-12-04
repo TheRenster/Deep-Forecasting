@@ -259,7 +259,7 @@ def main():
 
     # App title with your custom logo
     if image_path.is_file():
-        st.image(str(image_path), width='stretch')  # Fill container width
+        st.image(str(image_path), use_column_width=True)  # Fill container width
         st.markdown(
             """
             <div style="text-align:center; margin-top: -10px;">
