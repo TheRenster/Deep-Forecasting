@@ -264,7 +264,7 @@ def main():
     # App title with your custom logo
     try:
         # Use the robust path variable
-        st.image(image_path, use_container_width=True)
+        st.image(image_path, width="stretch")
         st.markdown(
             """
             <div style="text-align:center; margin-top: -10px;">
@@ -324,7 +324,7 @@ def main():
 
     # File Upload Section
     st.markdown("### Step 1: Upload Your Data")
-    uploaded_file = st.file_uploader("", type=['csv'])
+    uploaded_file = st.file_uploader("Upload your CSV file", type=['csv'], label_visibility="collapsed")
     
     if uploaded_file is not None:
         try:
@@ -342,10 +342,10 @@ def main():
                 tab1, tab2 = st.tabs(["Data Preview", "Quick Stats"])
                 
                 with tab1:
-                    st.dataframe(df.head(10), use_container_width=True)
+                    st.dataframe(df.head(10), )
                 
                 with tab2:
-                    st.dataframe(df.describe(), use_container_width=True)
+                    st.dataframe(df.describe(), width="stretch")
             
             # Column Selection
             st.markdown("### Step 2: Configure Your Forecast")
@@ -477,7 +477,7 @@ def main():
                 
                 # Train Models Button
                 st.markdown("---")
-                train_button = st.button("TRAIN MODELS & GENERATE FORECASTS", use_container_width=True)
+                train_button = st.button("TRAIN MODELS & GENERATE FORECASTS", width="stretch")
                 
                 if train_button:
                     results = {}
@@ -582,7 +582,7 @@ def main():
                         # Display metrics with highlighting
                         st.dataframe(
                             metrics_df.style.highlight_min(subset=['RMSE', 'MAE', 'MAPE (%)'], color='lightgreen'),
-                            use_container_width=True
+                            width="stretch"
                         )
                         
                         # Best model
