@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 import warnings
+from pathlib import Path
 warnings.filterwarnings('ignore')
 
 # Models
@@ -252,19 +253,13 @@ def main():
     # 1. Define the filename for the Forecasting App
     IMAGE_FILENAME = 'forecasting_friend.png'
 
-    # 2. Construct the absolute path to the file in the current script's directory (Robust)
-    #    NOTE: This assumes the image is in the SAME directory as this .py file.
-    try:
-        current_dir = Path(__file__).parent
-        image_path = str(current_dir / IMAGE_FILENAME)
-    except:
-        # Fallback to simple relative path if Pathlib fails (e.g., if running in an interactive notebook)
-        image_path = IMAGE_FILENAME 
+    # 2. Construct the path relative to the current working directory
+    # This works both locally and on Streamlit Cloud
+    image_path = Path.cwd() / IMAGE_FILENAME
 
     # App title with your custom logo
-    try:
-        # Use the robust path variable
-        st.image(image_path, width="stretch")
+    if image_path.is_file():
+        st.image(str(image_path), width='stretch')  # Fill container width
         st.markdown(
             """
             <div style="text-align:center; margin-top: -10px;">
@@ -275,10 +270,11 @@ def main():
             """,
             unsafe_allow_html=True
         )
-    except Exception as e:
-        # Fallback if image not found (Display the error for debugging!)
-        st.error(f"Image load failure (Path: {image_path}). Error: {e}")
-        st.markdown("""
+    else:
+        # Fallback if image not found
+        st.error(f"Image not found at path: {image_path}")
+        st.markdown(
+            """
             <div style="text-align: center; margin-bottom: 30px;">
                 <h1 style="font-family: 'Inter', sans-serif; font-size: 44px; font-weight: 700; color: #fff; margin: 0;">
                     Time Series Forecasting App
@@ -287,7 +283,9 @@ def main():
                     Advanced Forecasting with Multiple Models & Real-Time Comparison
                 </p>
             </div>
-        """, unsafe_allow_html=True)
+            """,
+            unsafe_allow_html=True
+        )
 
     # Sidebar - Simulating the grid icon's function with a collapsed sidebar
     with st.sidebar:
