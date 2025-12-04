@@ -343,7 +343,7 @@ def main():
                     st.dataframe(df.head(10), )
                 
                 with tab2:
-                    st.dataframe(df.describe(), width="stretch")
+                    st.dataframe(df.describe(), use_column_width=True)
             
             # Column Selection
             st.markdown("### Step 2: Configure Your Forecast")
@@ -475,7 +475,7 @@ def main():
                 
                 # Train Models Button
                 st.markdown("---")
-                train_button = st.button("TRAIN MODELS & GENERATE FORECASTS", width="stretch")
+                train_button = st.button("TRAIN MODELS & GENERATE FORECASTS", use_column_width=True)
                 
                 if train_button:
                     results = {}
@@ -580,7 +580,7 @@ def main():
                         # Display metrics with highlighting
                         st.dataframe(
                             metrics_df.style.highlight_min(subset=['RMSE', 'MAE', 'MAPE (%)'], color='lightgreen'),
-                            width="stretch"
+                            use_column_width=True
                         )
                         
                         # Best model
