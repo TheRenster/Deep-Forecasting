@@ -259,7 +259,7 @@ def main():
 
     # App title with your custom logo
     if image_path.is_file():
-        st.image(str(image_path), use_column_width=True)  # Fill container width
+        st.image(str(image_path), use_container_width=True)  # Fill container width
         st.markdown(
             """
             <div style="text-align:center; margin-top: -10px;">
@@ -343,7 +343,7 @@ def main():
                     st.dataframe(df.head(10), )
                 
                 with tab2:
-                    st.dataframe(df.describe(), use_column_width=True)
+                    st.dataframe(df.describe(), use_container_width=True)
             
             # Column Selection
             st.markdown("### Step 2: Configure Your Forecast")
@@ -475,7 +475,7 @@ def main():
                 
                 # Train Models Button
                 st.markdown("---")
-                train_button = st.button("TRAIN MODELS & GENERATE FORECASTS", use_column_width=True)
+                train_button = st.button("TRAIN MODELS & GENERATE FORECASTS", use_container_width=True)
                 
                 if train_button:
                     results = {}
@@ -580,7 +580,7 @@ def main():
                         # Display metrics with highlighting
                         st.dataframe(
                             metrics_df.style.highlight_min(subset=['RMSE', 'MAE', 'MAPE (%)'], color='lightgreen'),
-                            use_column_width=True
+                            use_container_width=True
                         )
                         
                         # Best model
